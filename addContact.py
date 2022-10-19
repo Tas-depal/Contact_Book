@@ -70,7 +70,7 @@ class AddContact(Toplevel):
 		email = self.entry_email.get()
 		address = self.entry_address.get(1.0,'end-1c').upper()
 
-		if re.search('^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]', email):
+		if re.search('^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]', email) and fName.isalpha() and lName.isalpha() and mobNo.isdigit():
 
 			if fName and lName and mobNo and email and address !="":
 				try:
@@ -88,4 +88,4 @@ class AddContact(Toplevel):
 				messagebox.showerror('ERROR','Fill all the fields!!',icon='warning')
 
 		else:
-				messagebox.showerror('Invalid Email','Please fill valid email',icon='warning')
+			messagebox.showerror('Invalid Entry','Please enter valid data',icon='warning')
