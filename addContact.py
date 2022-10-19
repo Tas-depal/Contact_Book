@@ -70,19 +70,22 @@ class AddContact(Toplevel):
 		email = self.entry_email.get()
 		address = self.entry_address.get(1.0,'end-1c').upper()
 
-		if fName and lName and mobNo and email and address !="":
-			try:
-				# Pass data to database
-				query = "insert into 'directory' (f_name, s_name, mobNo, email, address) values (?,?,?,?,?);"
-				cur.execute(query, (fName, lName, mobNo, email, address));
-				con.commit()
-				messagebox.showinfo('SUCCESS','Contact added successfully!!')
-				self.destroy()
+		if re.search('^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]', email):
 
-			except Exception as e:
-				messagebox.showerror('ERROR',str(e))
+			if fName and lName and mobNo and email and address !="":
+				try:
+					# Pass data to database
+					query = "insert into 'directory' (f_name, s_name, mobNo, email, address) values (?,?,?,?,?);"
+					cur.execute(query, (fName, lName, mobNo, email, address));
+					con.commit()
+					messagebox.showinfo('SUCCESS','Contact added successfully!!')
+					self.destroy()
+
+				except Exception as e:
+					messagebox.showerror('ERROR',str(e))
+
+			else:
+				messagebox.showerror('ERROR','Fill all the fields!!',icon='warning')
 
 		else:
-			messagebox.showerror('ERROR','Fill all the fields!!',icon='warning')
-
-
+				messagebox.showerror('Invalid Email','Please fill valid email',icon='warning')
